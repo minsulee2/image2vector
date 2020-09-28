@@ -37,8 +37,8 @@
                 <div id="sampleBox">
                     <h2>Example</h2>
                     <figure>
-                        <img class="img" src="https://raw.githubusercontent.com/woomurf/ainize-color-transfer/master/images/autumn.jpg" alt="sample_color_source">
-                        <figcaption>Sample Color source image</figcaption>
+                        <img class="img" src="https://github.com/minsulee2/image2vector/blob/master/images/2.png" alt="sample_number">
+                        <figcaption>Sample hand written number image</figcaption>
                     </figure>
                     
 
@@ -46,7 +46,7 @@
                 <br>
                 <h2>Upload </h2>
                 <div id = 'inputImage'>
-                    <label for="source">Color source image : </label>
+                    <label for="source">Source number image : </label>
                     <input type = 'file' id = 'source' style="margin-right: 10px; margin-bottom: 10px;">
                     <button id = "submit" type='submit' class="btn btn-primary btn-lg" style="margin-left: auto;"> Run </button>
                 </div>
@@ -58,26 +58,23 @@
                 <script>
                     document.getElementById("submit").onclick = () => {
                         var formData = new FormData();
-                        var source = document.getElementById('source').files[0]
-                        var target = document.getElementById('target').files[0]
-                        
-                        formData.append('color_source', source)
-                        formData.append('base', target)
-        
+                        var source = document.getElementById('source').files[0];
+
+                        formData.append('source', source);
+
                         fetch(
-                            '/transfer',
+                            '/image',
                             {
                                 method: 'POST',
-                                body: formData,
+                                body: formData
                             }
                         )
                         .then(response => {
                             if ( response.status == 200){
-                                return response 
+                                return response;
                             }
                             else{
-                                throw Error("transfer error")
-                                
+                                throw Error("Loading image error");
                             }
                         })
                         .then(response => response.blob())
@@ -88,9 +85,8 @@
                         })
                         .catch(e =>{
                             document.getElementById("errorbox").innerHTML = e;
-                        })
-                    }
-
+                        });
+                    };
                 </script>
             </div>
         </div>
